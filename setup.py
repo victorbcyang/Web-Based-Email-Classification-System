@@ -14,5 +14,9 @@ setup(
     zip_safe=False,
     install_requires=[
         'flask',
+        'scikit-learn',
+        'scipy',
+        'nltk',
+        'numpy',
     ],
 )

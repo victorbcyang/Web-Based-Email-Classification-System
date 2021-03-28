@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  phone TEXT UNIQUE NOT NULL,
+  first_name TEXT NOT NULL,
+  middle_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  address TEXT NOT NULL,
+  occupation TEXT NOT NULL
+);

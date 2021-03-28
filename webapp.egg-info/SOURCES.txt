@@ -16,6 +16,7 @@ webapp.egg-info/not-zip-safe
 webapp.egg-info/requires.txt
 webapp.egg-info/top_level.txt
 webapp/static/style.css
+webapp/templates/.DS_Store
 webapp/templates/base.html
 webapp/templates/auth/changepassword.html
 webapp/templates/auth/login.html
