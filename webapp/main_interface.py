@@ -55,7 +55,10 @@ def upload_file():
             if 'tgz' in f.filename:
                 # if the uploaded file is a zip file
                 # need to save the uploaded file and extract it for usage
-                userpath = os.path.join('webapp/uploded_files', g.user['username'])
+                if g.user:
+                    userpath = os.path.join('webapp/uploaded_files', g.user['username'])
+                else:
+                    userpath = 'webapp/uploaded_files/unknownuser'
                 # create path for storing user's uploaded file
                 # the uploaded file will be stored at 'uploaded_files/username'
                 if not os.path.isdir(userpath):
