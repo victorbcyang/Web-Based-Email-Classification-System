@@ -148,6 +148,7 @@ $ . venv/bin/activate
 $ pip install webapp-1.0.0-py3-none-any.whl
 ```
 ```pip``` will install the project along with its dependencies.
+
 4. Run ```init-db``` under the directory of ```venv/lib/python3.7/site-packages``` to initialize database and to create the database in the instance folder
 ```
 $ cd venv/lib/python3.7/site-packages
