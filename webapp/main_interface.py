@@ -45,7 +45,7 @@ def upload_file():
         error = None
         if not f:
             # check if a file is select for classification
-            error = 'Please select file for classificaion!'
+            error = 'Please select file for classification!'
             # show the error if no file selected
             flash(error)
             return redirect(url_for('index'))
