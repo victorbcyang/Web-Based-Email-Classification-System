@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}User Information:{% endblock %}</h1>
+    <h4>
+        &emsp;&emsp;Name: {{ g.user.first_name }} {{ g.user.middle_name }} {{ g.user.last_name }} <br/>
+        &emsp;&emsp;Email: {{ g.user.email }} <br/>
+        &emsp;&emsp;Phone: {{ g.user.phone }} <br/>
+        &emsp;&emsp;Address: {{ g.user.address }} <br/>
+        &emsp;&emsp;Occupation: {{ g.user.occupation }}
+        <ul><a href="{{ url_for('auth.change_password')}}">Change Password</a></ul>
+    </h4>
+{% endblock %}
+
+{% block content %}
+    <form action="http://127.0.0.1:5000/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Predict">
+    </form>
+    <h1><pre>{{ Result }}</pre></h1>
+    <h1>{{ Predict_label }}</h1>
+{% endblock %}

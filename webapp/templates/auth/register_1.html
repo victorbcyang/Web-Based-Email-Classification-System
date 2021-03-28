@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Email Classifier</title>
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Email Classifier</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li>
+                <a class="nav-link active" aria-current="page" href="#">Login</a>
+              </li>
+              <li>
+                <a class="nav-link active" aria-current="page" href="#">Register</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div style="width: 30%; margin: 5px auto;">
+        <form method="POST" style="margin: 10px;">
+            
+                <div class="col-auto">
+                    <label for="username">Username</label>
+                  <input type="username" class="form-control">
+                </div>
+                <div class="col-auto">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" placeholder="password">
+                </div>
+                <div class="col-auto">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" placeholder="<user>@<host><domain>" required>
+                  </div>
+                  <div class="col-auto">
+                    <label for="phone">Phone</label>
+                    <input type="phone" class="form-control">
+                  </div>
+                  <div class="col-auto">
+                    <label for="firstName">First Name</label>
+                    <input type="firstName" class="form-control">
+                  </div>
+                  <div class="col-auto">
+                    <label for="MiddleName">Middle Name</label>
+                    <input type="MiddleName" class="form-control">
+                  </div>
+                  <div class="col-auto">
+                    <label for="LastName">Last Name</label>
+                    <input type="LastName" class="form-control">
+                  </div>
+                  <div class="col-auto">
+                    <label for="address">Address</label>
+                    <input type="address" class="form-control">
+                  </div>
+                  <div class="col-auto">
+                    <label for="occupation">Occupation</label>
+                    <input type="occupation" class="form-control">
+                  </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-lg btn-success btn-block" style="margin-top: 5px;">Register</button>
+                </div>
+        </form>
+        <div style="margin: 10px;">
+            <label for="formFileSm" class="form-label">Please Upload Your File here:</label>
+            <input class="form-control-sm" id="formFileSm" type="file">
+          </div>
+    </div>
+   
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    
+  </body>
+</html>
