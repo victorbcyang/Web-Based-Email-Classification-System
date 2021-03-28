@@ -48,11 +48,15 @@ def upload_file():
         if 'tgz' in f.filename:
             # if the uploaded file is a zip file
             # need to save the uploaded file and extract it for usage
-            f.save(os.path.join('webapp/uploded_files', f.filename))
-            tgz_file_path = 'webapp/uploded_files/data.tgz'
+            userpath = os.path.join('webapp/uploded_files', g.user['username'])
+            if not os.path.isdir(userpath):
+                os.mkdir(userpath)
+                
+            f.save(os.path.join(userpath, f.filename))
+            tgz_file_path = os.path.join(userpath, f.filename)
             ext_file = tarfile.open(tgz_file_path)
-            ext_file.extractall('webapp/uploded_files')
-            test_path = 'webapp/uploded_files/data/test'
+            ext_file.extractall(userpath)
+            test_path = os.path.join(userpath, 'data/test')             # 'webapp/uploded_files/data/test'
             test_data = datasets.load_files(test_path, encoding='latin-1')
             X_test = vectorizer.transform(test_data.data)
             X_test_tfidf = tfidf_T.transform(X_test)

@@ -3,6 +3,7 @@ import string
 import numpy as np
 import sys
 from sklearn import datasets
+import DataPrepare
 import nltk
 from nltk import pos_tag, word_tokenize
 from nltk.stem import WordNetLemmatizer
@@ -11,61 +12,9 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 import pickle
-import os
-import random
-import shutil
-import tarfile
-import numpy as np
-
-class DataPrepare:
-    def __init__(self):
-        self.data_path = "data" # directory of data
-        
-    def extract(self, name, path):
-        filename = os.path.join(self.data_path, name)
-        file = tarfile.open(filename)
-        file.extractall(path)
-        msg = "Extracted file stored at: " + path
-        print(msg)
-        
-        train_path = os.path.join(path, 'data/train')
-        test_path = os.path.join(path, 'data/test')
-        
-        return train_path, test_path
-        
-    def subsample(self, train_path, target_path):
-        if not os.path.isdir(target_path):
-            os.mkdir(target_path)
-        
-        folders_train = [f for f in os.listdir(train_path)]
-        
-        for folder in folders_train:
-            if not os.path.isdir(os.path.join(target_path, folder)):
-                os.mkdir(os.path.join(target_path, folder))
-                
-        num_file = []
-        for c in folders_train:
-            _, _, num = next(os.walk(os.path.join(train_path, c)))
-            num_file.append(len(num))
-            
-        file_name = {}
-        for folder in folders_train:
-            file_name[folder] = []
-            for file in os.listdir(os.path.join(train_path, folder)):
-                file_name[folder].append(str(file))
-            file_name[folder] = random.sample(file_name[folder], min(num_file))
-            
-        for folder in folders_train:
-            org_pth = os.path.join(train_path, folder)
-            tar_pth = os.path.join(target_path, folder)
-            
-            for name in file_name[folder]:
-                shutil.copy(os.path.join(org_pth, name), os.path.join(tar_pth, name))
-        msg = "Subsampled file stored at: " + target_path
-        return target_path
 
 data_path = 'data' # the directory for storing the extracted files
-data_prepare = DataPrepare()
+data_prepare = DataPrepare.DataPrepare()
 train_path, test_path = data_prepare.extract('data.tgz', data_path)
 target_path = 'data/data/train_subsample'
 subsample_path = data_prepare.subsample(train_path, target_path)
@@ -121,13 +70,10 @@ classification.fit(X_train_tfidf, y_train)
 pickle.dump(classification, open('model.pkl', 'wb'))
 
 y_train_pred = classification.predict(X_train_tfidf)
-sys.stdout = open('train_acc.txt', 'w')
 print('Training Score: ', classification.score(X_train_tfidf, y_train))
 print(classification_report(y_train, y_train_pred, target_names=train_data.target_names))
-sys.stdout.close()
+
 
 y_pred = classification.predict(X_test_tfidf)
-sys.stdout = open('test_acc.txt', 'w')
 print('Testing Score: ', classification.score(X_test_tfidf, y_test))
 print(classification_report(y_test, y_pred, target_names=test_data.target_names))
-sys.stdout.close()
