@@ -28,6 +28,6 @@ toml==0.10.2
 tqdm==4.59.0
 typed-ast==1.4.2
 typing-extensions==3.7.4.3
--e git+https://github.com/victorbcyang/Web-Based-Email-Classification-System.git@29336b6af2b8d4959de63e142185c74fc98be609#egg=webapp
+-e git+https://github.com/victorbcyang/Web-Based-Email-Classification-System.git@e2b9158b2e56cc1fc00976061e35fd3d40c7db05#egg=webapp
 Werkzeug==1.0.1
 zipp==3.4.1
