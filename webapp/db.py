@@ -2,7 +2,11 @@ import sqlite3
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-
+'''
+    - g is a special object that is unique for each request. 
+      It is used to store data that might be accessed by multiple functions during the request. 
+    - current_app is another special object that points to the Flask application handling the request.
+'''
 def get_db():
     if 'db' not in g:
         # sqlite3.connect() establishes a connection to the file pointed at by the DATABASE configuration key.
@@ -17,6 +21,8 @@ def get_db():
 
 
 def close_db(e=None):
+    # close_db checks if a connection was created by checking if g.db was set.
+    # If the connection exists, it is closed.
     db = g.pop('db', None)
     if db is not None:
         db.close()

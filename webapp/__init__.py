@@ -25,16 +25,20 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
+    # this page is used for debugging
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-    
+
+    # import database 
     from . import db
     db.init_app(app)
 
+    # import authentication, which include the functions related to user authenticate
     from . import auth
     app.register_blueprint(auth.bp)
 
+    # import the main interface, where ouput the classification report
     from . import main_interface
     app.register_blueprint(main_interface.bp)
     app.add_url_rule('/', endpoint='index')

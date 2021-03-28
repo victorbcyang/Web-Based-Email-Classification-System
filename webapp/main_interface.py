@@ -16,7 +16,9 @@ bp = Blueprint('interface', __name__)
 
 # load the pre-trained classifier model
 model = pickle.load(open('webapp/model.pkl', 'rb'))
+# load the pre-fitted stopword remove vectorizer
 vectorizer = pickle.load(open('webapp/vectorizer.pkl', 'rb'))
+# load the pre-fitted tfidf transform
 tfidf_T = pickle.load(open('webapp/tfidf.pkl', 'rb'))
 # the list of categories name
 label_name = ['alt.atheism', 'comp.graphics', 'comp.os.ms-windows.misc', 'comp.sys.ibm.pc.hardware', \
@@ -24,7 +26,6 @@ label_name = ['alt.atheism', 'comp.graphics', 'comp.os.ms-windows.misc', 'comp.s
               'rec.motorcycles', 'rec.sport.baseball', 'rec.sport.hockey', 'sci.crypt',\
               'sci.electronics', 'sci.med', 'sci.space', 'soc.religion.christian', \
               'talk.politics.guns', 'talk.politics.mideast', 'talk.politics.misc', 'talk.religion.misc']
-
 
 
 @bp.route('/', methods=('GET', 'POST'))
@@ -41,11 +42,11 @@ def index():
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
-        # f.save(os.path.join('webapp/uploded_files', secure_filename(f.filename)))
-        # test_data = open(os.path.join('webapp/uploded_files', secure_filename(f.filename)), 'r')
         error = None
         if not f:
-            error = 'Please Select file for classificaion!'
+            # check if a file is select for classification
+            error = 'Please select file for classificaion!'
+            # show the error if no file selected
             flash(error)
             return redirect(url_for('index'))
 
@@ -55,20 +56,24 @@ def upload_file():
                 # if the uploaded file is a zip file
                 # need to save the uploaded file and extract it for usage
                 userpath = os.path.join('webapp/uploded_files', g.user['username'])
+                # create path for storing user's uploaded file
+                # the uploaded file will be stored at 'uploaded_files/username'
                 if not os.path.isdir(userpath):
                     os.mkdir(userpath)
-
+                # save the file for further usage
                 f.save(os.path.join(userpath, f.filename))
-                tgz_file_path = os.path.join(userpath, f.filename)
-                ext_file = tarfile.open(tgz_file_path)
-                ext_file.extractall(userpath)
-                test_path = os.path.join(userpath, 'data/test')             # 'webapp/uploded_files/data/test'
-                test_data = datasets.load_files(test_path, encoding='latin-1')
-                X_test = vectorizer.transform(test_data.data)
-                X_test_tfidf = tfidf_T.transform(X_test)
-                y_test = test_data.target
-                y_pred = model.predict(X_test_tfidf)
+                tgz_file_path = os.path.join(userpath, f.filename)              # indicate the directory of the stored uploaded file 
+                ext_file = tarfile.open(tgz_file_path)                          # extract file by tarfile
+                ext_file.extractall(userpath)                                   # extract file by tarfile
+                test_path = os.path.join(userpath, 'data/test')                 # specify the path of testing data: 'webapp/uploded_files/username/data/test'
+                test_data = datasets.load_files(test_path, encoding='latin-1')  # specify the test data using sklearn dataloader
+                X_test = vectorizer.transform(test_data.data)                   # remove stopword by the pre-fitted vectorizer in the previous MLproj
+                X_test_tfidf = tfidf_T.transform(X_test)                        # perform TF-IDF transform by the pre-fitted tfidt transform
+                y_test = test_data.target                                       # specify the label of testing data
+                y_pred = model.predict(X_test_tfidf)                            # predict the label by the pre-trained model in the previous MLproj
+                # print the classification result for showing on the interface
                 result = classification_report(y_test, y_pred, target_names=test_data.target_names)
+
                 if g.user:
                     return render_template("main_interface/index_user.html", Result=result)
                 else:
@@ -76,12 +81,11 @@ def upload_file():
             else:
                 test_data = f.read()
                 trans_list = []
-                # trans_list.append(test_data.read())
                 trans_list.append(test_data)
-                test_file = vectorizer.transform(trans_list)
-                test_feature = tfidf_T.transform(test_file)
-                prediction = model.predict(test_feature)
-        
+                test_file = vectorizer.transform(trans_list)        # remove stopword by the pre-fitted vectorizer in the previous MLproj
+                test_feature = tfidf_T.transform(test_file)         # perform TF-IDF transform by the pre-fitted tfidt transform
+                prediction = model.predict(test_feature)            # predict the label by the pre-trained model in the previous MLproj
+                # the prediction output is a index, needed to specify which category by checking the label_name list
                 if g.user:
                     return render_template("main_interface/index_user.html", Predict_label='The category of this email is {}'.format(label_name[int(prediction)]))
                 else:

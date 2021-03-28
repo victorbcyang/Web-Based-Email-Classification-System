@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <h1>{% block title %}User Information:{% endblock %}</h1>
+    <h1>{% block title %}Select file for classification{% endblock %}</h1>
     <h4>
+        &emsp;User Information:
         &emsp;&emsp;Name: {{ g.user.first_name }} {{ g.user.middle_name }} {{ g.user.last_name }} <br/>
         &emsp;&emsp;Email: {{ g.user.email }} <br/>
         &emsp;&emsp;Phone: {{ g.user.phone }} <br/>
@@ -13,6 +14,7 @@
 {% endblock %}
 
 {% block content %}
+    <div>Accepted file formats are: ".txt", ".tgz"</div>
     <form action="http://127.0.0.1:5000/upload" method="post" enctype="multipart/form-data">
         <input type="file" name="file">
         <input type="submit" value="Predict">

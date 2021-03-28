@@ -1,4 +1,7 @@
 include webapp/schema.sql
+include model.pkl
+include tfidf.pkl
+include vectorizer.pkl
 graft webapp/static
 graft webapp/templates
 global-exclude *.pyc
