@@ -37,7 +37,7 @@ pip install -r requirements.txt
 ```
 This includes installing Flask.
 ## Run the application
-After activating the virtual environment and installing the required packages, you can run the application using ````flask``` command.
+After activating the virtual environment and installing the required packages, you can run the application using ```flask``` command.
 The command should be run in the ```Web-Based-Email-Classification-System``` directory, not in ```webapp``` package.
 For Mac/Linux:
 ```
