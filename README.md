@@ -168,7 +168,7 @@ and copy the generated value to it
 ```python
 SERCET_KEY = b'_5#y2L"F4Q8z\n\xec]/'
 ```
-6. Run with a production server
+6. Run with a production server.
 When running publicly, you should not use the built-in development server (```flask run```). Instead, use a production WSGI server.
 For example, to use [Waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/), first install it in the virtual environment:
 ```
